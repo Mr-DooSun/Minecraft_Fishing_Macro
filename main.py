@@ -89,6 +89,13 @@ if __name__ == '__main__' :
 
             sleep(1)
 
+            print("Casting!")
+            mouse_drag.press(mouse_button.right)
+            mouse_drag.release(mouse_button.right)
+            
+            sleep(3)
+
+
         cv2.imshow("frame1",frame)
 
         # q 버튼을 누르면 종료
