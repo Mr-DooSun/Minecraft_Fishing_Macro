@@ -76,7 +76,7 @@ if __name__ == '__main__' :
     window_list = get_window_list()
 
     for tmp_title, tmp_hwnd in window_list:
-        if "minecraft 1.19.2" in tmp_title.lower() :
+        if "minecraft" in tmp_title.lower() :
             hwnd = tmp_hwnd
             break
 
