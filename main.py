@@ -21,6 +21,23 @@ def Search_image_on_image(frame,template,threshold=1) :
 
     return None
 
+def Search_red_on_image(frame):
+    # lower_color=(0, 0, 44)
+    # upper_color=(40, 33, 84)
+    
+    lower_color=(31, 31, 198)
+    upper_color=(51, 51, 218)
+
+    img_mask = cv2.inRange(frame, lower_color, upper_color)
+
+    cv2.imshow("img_mask",img_mask)
+
+    for x in range(0,len(img_mask)):
+        for y in range(0,len(img_mask[x])):
+            if img_mask[x][y] == 255 :
+                return True
+    return False
+
 def get_window_image_by_opencv(
     x: int,
     y: int,
@@ -59,7 +76,7 @@ if __name__ == '__main__' :
     window_list = get_window_list()
 
     for tmp_title, tmp_hwnd in window_list:
-        if "minecraft" in tmp_title.lower() :
+        if "minecraft 1.19.2" in tmp_title.lower() :
             hwnd = tmp_hwnd
             break
 
@@ -75,15 +92,9 @@ if __name__ == '__main__' :
             h=bot,
         )
 
-        status = Search_image_on_image(
-            frame=frame,
-            template=template,
-            threshold=0.5,
-        )
-        
-        print("Wait....") 
-        if not(status) :
-            print("Hit!")
+        status = Search_red_on_image(frame=frame)
+        if not status :
+            print("HIT!")
             mouse_drag.press(mouse_button.right)
             mouse_drag.release(mouse_button.right)
 
@@ -94,7 +105,8 @@ if __name__ == '__main__' :
             mouse_drag.release(mouse_button.right)
             
             sleep(3)
-
+        else :
+            print("Wait....")
 
         cv2.imshow("frame1",frame)
 
