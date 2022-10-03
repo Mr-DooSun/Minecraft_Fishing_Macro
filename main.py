@@ -76,12 +76,12 @@ if __name__ == '__main__' :
 
     window_list = get_window_list()
 
+    total_count = 0
+
     for tmp_title, tmp_hwnd in window_list:
         if "minecraft" in tmp_title.lower() :
             hwnd = tmp_hwnd
             break
-
-    template = cv2.imread("image/detect.png")
 
     while True :
         left, top, right, bot = win32gui.GetWindowRect(hwnd)
@@ -96,6 +96,7 @@ if __name__ == '__main__' :
         status = Search_red_on_image(frame=frame)
         if not status :
             print("HIT!")
+            total_count += 1
             mouse_drag.press(mouse_button.right)
             mouse_drag.release(mouse_button.right)
 
@@ -106,6 +107,8 @@ if __name__ == '__main__' :
             mouse_drag.release(mouse_button.right)
             
             sleep(3)
+
+            print(f"Total Hit : {total_count}")
         else :
             print("Wait....")
 
