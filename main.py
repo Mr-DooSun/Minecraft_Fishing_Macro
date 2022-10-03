@@ -1,6 +1,9 @@
 import win32gui
+import pynput
 
 import numpy
+
+from time import sleep
 
 import cv2
 
@@ -50,24 +53,17 @@ def get_window_list():
     return output
 
 if __name__ == '__main__' :
-    # mouse_drag = pynput.mouse.Controller()
-    # mouse_button = pynput.mouse.Button
-
-    # mouse_drag.press(mouse_button.right)
-    # mouse_drag.release(mouse_button.right)
+    mouse_drag = pynput.mouse.Controller()
+    mouse_button = pynput.mouse.Button
 
     window_list = get_window_list()
 
     for tmp_title, tmp_hwnd in window_list:
-        if "Discord" in tmp_title :
+        if "minecraft" in tmp_title.lower() :
             hwnd = tmp_hwnd
             break
 
-    # left, top, right, bot = win32gui.GetWindowRect(hwnd)
-    # width = (right - left)
-    # height = (bot - top)
-
-    template = cv2.imread("image/detect2.png")
+    template = cv2.imread("image/detect.png")
 
     while True :
         left, top, right, bot = win32gui.GetWindowRect(hwnd)
@@ -82,10 +78,17 @@ if __name__ == '__main__' :
         status = Search_image_on_image(
             frame=frame,
             template=template,
-            threshold=0.9,
+            threshold=0.5,
         )
+        
+        print("Wait....") 
+        if not(status) :
+            print("Hit!")
+            mouse_drag.press(mouse_button.right)
+            mouse_drag.release(mouse_button.right)
 
-        print(status)
+            sleep(1)
+
         cv2.imshow("frame1",frame)
 
         # q 버튼을 누르면 종료
