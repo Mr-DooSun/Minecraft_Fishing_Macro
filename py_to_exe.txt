@@ -1,0 +1,1 @@
+pyinstaller -n "Minecraft_Fishing_Macro" --clean --onedir main.py
