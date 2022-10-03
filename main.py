@@ -31,6 +31,7 @@ def Search_red_on_image(frame):
     img_mask = cv2.inRange(frame, lower_color, upper_color)
 
     cv2.imshow("img_mask",img_mask)
+    cv2.moveWindow('img_mask', 400, 100)
 
     for x in range(0,len(img_mask)):
         for y in range(0,len(img_mask[x])):
@@ -109,6 +110,7 @@ if __name__ == '__main__' :
             print("Wait....")
 
         cv2.imshow("frame1",frame)
+        cv2.moveWindow('frame1', 100, 100)
 
         # q 버튼을 누르면 종료
         if cv2.waitKey(30) & 0xFF == ord('q'):
